@@ -25,11 +25,11 @@ with gr.Blocks(js=js) as demo:
 
 
     with Modal(visible=False, allow_user_close=False) as login_box:
-        gr.HTML(f"<h1>平台登录</h1>")
-        user_tb = gr.Textbox(label="用户名", )
-        passwd_tb = gr.Textbox(label="密码", type="password")
-        confirm_btn = gr.Button("确定", variant="primary", elem_classes=["tool"])
-        cancel_btn = gr.Button("取消", variant="secondary", elem_classes=["tool"])
+        gr.HTML(f"<h1>login system</h1>")
+        user_tb = gr.Textbox(label="username", )
+        passwd_tb = gr.Textbox(label="password", type="password")
+        confirm_btn = gr.Button("confirm login", variant="primary", elem_classes=["tool"])
+        cancel_btn = gr.Button("cancel", variant="secondary", elem_classes=["tool"])
         
         confirm_btn.click(user_db.check_login,
                         inputs=[user_tb, passwd_tb], outputs=[login_html, user_status, ak_status],
@@ -38,12 +38,12 @@ with gr.Blocks(js=js) as demo:
                         js="(value) => set_cookie('ak', value)"
                     ) # input不能是state才会调用js
         cancel_btn.click(lambda:Modal(visible=False), inputs=[], outputs=[login_box])
-    login_btn = gr.Button(value="登录", variant="primary", elem_classes=["tool"])
+    login_btn = gr.Button(value="login this", variant="primary", elem_classes=["tool"])
     login_btn.click(lambda: Modal(visible=True), inputs=[], outputs=[login_box])
 
-    reset_btn = gr.Button("logout")
+    reset_btn = gr.Button("logout this")
     def reset_cookie():
-        return '<h2>未登录</h2>'
+        return '<h2>None user</h2>'
     reset_btn.click(fn=reset_cookie, inputs=[], outputs=[login_html], js="(value) => unset_cookie('ak')")
 
 

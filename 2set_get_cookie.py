@@ -6,7 +6,7 @@ import consts
 def check_xxx_cookie(request: gr.Request):
     xxx = request.request.cookies.get("xxx", None)
     if not xxx:
-        return '<h2 style="color: red;">无xxx此cookie</h2>', xxx
+        return '<h2 style="color: red;">xxx cookie is null</h2>', xxx
     return f'<h2 style="color: limegreen;">xxx={xxx}</h2>', xxx
 
 def set_xxx_cookie(xxx: str, request: gr.Request):
@@ -32,7 +32,7 @@ with gr.Blocks(js=js) as demo:
     add_btn.click(fn=set_xxx_cookie, inputs=[xxx], outputs=[login_html], js="(value) => set_cookie('xxx', value)")
     reset_btn = gr.Button("reset cookie")
     def reset_cookie():
-        '<h2 style="color: red;">无xxx此cookie</h2>'
+        '<h2 style="color: red;">xxx cookie is null</h2>'
     reset_btn.click(fn=reset_cookie, inputs=[], outputs=[login_html], js="(value) => unset_cookie('xxx')")
 
 

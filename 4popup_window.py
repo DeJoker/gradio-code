@@ -45,17 +45,17 @@ with gr.Blocks() as demo:
 
     with Modal(visible=False, allow_user_close=False) as confirm_box:
         confirm_html = gr.HTML(f"<h1>{confirm_info.value}</h1>")
-        confirm_btn = gr.Button("确定", variant="primary", elem_classes=["tool"])
-        concel_btn = gr.Button("取消", variant="secondary", elem_classes=["tool"])
+        confirm_btn = gr.Button("confirm", variant="primary", elem_classes=["tool"])
+        cancel_btn = gr.Button("cancel", variant="secondary", elem_classes=["tool"])
         confirm_btn.click(partial(confirm_value, True), inputs=[], outputs=[confirm_box, confirm_status])
-        concel_btn.click(partial(confirm_value, False), inputs=[], outputs=[confirm_box, confirm_status])
+        cancel_btn.click(partial(confirm_value, False), inputs=[], outputs=[confirm_box, confirm_status])
 
-    instance_dr = gr.Dropdown(label="实例", choices=countries, value=countries[0], interactive=True,)
-    exsit_tb = gr.Textbox(label="实例", value=" ".join(countries), interactive=True,)
-    remove_btn = gr.Button(value="删除该实例", variant="stop", elem_classes=["tool"])
+    instance_dr = gr.Dropdown(label="instance", choices=countries, value=countries[0], interactive=True,)
+    exsit_tb = gr.Textbox(label="instance", value=" ".join(countries), interactive=True,)
+    remove_btn = gr.Button(value="remove this instance", variant="stop", elem_classes=["tool"])
 
     def show_remove_confirm_box(instance=""):
-        return Modal(visible=True), f'<h1 style="color: red;">！！是否移除 {instance} ！！</h1>'
+        return Modal(visible=True), f'<h1 style="color: red;">are you sure to remove {instance} </h1>'
     
     remove_btn.click(fn=partial(show_remove_confirm_box),
         inputs=[instance_dr], outputs=[confirm_box, confirm_html]

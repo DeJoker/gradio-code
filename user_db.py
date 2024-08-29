@@ -22,24 +22,24 @@ def check_login(user="", passwd=""):
 
     item = users.get(user, None)
     if not item:
-        return '<h2 style="color: red;">用户不存在</h2>', "", ""
+        return '<h2 style="color: red;">username not exists</h2>', "", ""
     if item["passwd"] != passwd:
-        return '<h2 style="color: red;">密码错误</h2>', "", ""
+        return '<h2 style="color: red;">password error</h2>', "", ""
 
     ak = item.get("ak", None)
     if ak is not None:
-        return f'<h2 style="color: limegreen;">{user}已登录</h2>', user, ak
+        return f'<h2 style="color: limegreen;">{user} login</h2>', user, ak
     else:
         ak = str(uuid.uuid4())
         # refresh access key to db
 
-    return f'<h2 style="color: limegreen;">{user}已登录</h2>', user, ak
+    return f'<h2 style="color: limegreen;">{user} login</h2>', user, ak
 
 def check_cookie(request: gr.Request):
     user, ak = _check_cookie(request)
     if not user:
-        return '<h2>未登录</h2>', user, ""
-    return f'<h2 style="color: limegreen;">{user}已登录</h2>', user, ak
+        return '<h2>None login</h2>', user, ""
+    return f'<h2 style="color: limegreen;">{user} login</h2>', user, ak
 
 
 def _check_cookie(request: gr.Request):
