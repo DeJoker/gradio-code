@@ -17,7 +17,8 @@ def set_xxx_cookie(xxx: str, request: gr.Request):
     return f'<h2 style="color: limegreen;">xxx={xxx}</h2>'
 
 js = '''function js() {
-    window.set_cookie = function(key, value){document.cookie = key+'='+value+'; Path=/; SameSite=Strict';return [value]}
+    window.set_cookie = function(key, value) { document.cookie = key+'='+value+'; Path=/; SameSite=Strict'; return [value]; };
+    window.unset_cookie = function(key) { document.cookie = key + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict'; };
 }
 '''
 with gr.Blocks(js=js) as demo:
@@ -29,6 +30,10 @@ with gr.Blocks(js=js) as demo:
     xxx = gr.Textbox(label="cookie xxx")
     add_btn = gr.Button("add cookie")
     add_btn.click(fn=set_xxx_cookie, inputs=[xxx], outputs=[login_html], js="(value) => set_cookie('xxx', value)")
+    reset_btn = gr.Button("reset cookie")
+    def reset_cookie():
+        '<h2 style="color: red;">无xxx此cookie</h2>'
+    reset_btn.click(fn=reset_cookie, inputs=[], outputs=[login_html], js="(value) => unset_cookie('xxx')")
 
 
 
